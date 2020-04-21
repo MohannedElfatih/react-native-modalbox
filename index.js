@@ -11,7 +11,8 @@ import {
   BackHandler,
   Platform,
   Modal,
-  Keyboard
+  Keyboard,
+  I18nManager
 } from 'react-native';
 
 const {height: SCREEN_HEIGHT, width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -481,8 +482,10 @@ export default class ModalBox extends React.PureComponent {
       height: this.state.containerHeight,
       width: this.state.containerWidth
     };
-    const offsetX = (this.state.containerWidth - this.state.width) / 2;
-
+    let offsetX = (this.state.containerWidth - this.state.width) / 2;
+    if (I18nManager.isRTL) {
+      offsetX = -offsetX;
+    }
     return (
       <Animated.View
         onLayout={this.onViewLayout}
